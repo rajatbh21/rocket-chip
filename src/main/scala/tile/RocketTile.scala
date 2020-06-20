@@ -1,5 +1,6 @@
 // See LICENSE.SiFive for license details.
 // See LICENSE.Berkeley for license details.
+//comments to be added for better understanding
 
 package freechips.rocketchip.tile
 
@@ -15,21 +16,21 @@ import freechips.rocketchip.subsystem.{SubsystemResetSchemeKey, ResetSynchronous
 import freechips.rocketchip.util._
 
 case class RocketTileParams(
-    core: RocketCoreParams = RocketCoreParams(),
-    icache: Option[ICacheParams] = Some(ICacheParams()),
-    dcache: Option[DCacheParams] = Some(DCacheParams()),
-    btb: Option[BTBParams] = Some(BTBParams()),
-    dataScratchpadBytes: Int = 0,
-    name: Option[String] = Some("tile"),
-    hartId: Int = 0,
-    beuAddr: Option[BigInt] = None,
-    blockerCtrlAddr: Option[BigInt] = None,
+    core: RocketCoreParams = RocketCoreParams(), //core declaration: has parameters of rocket core from the rocket chip library
+    icache: Option[ICacheParams] = Some(ICacheParams()), // similarly icache: instruction cache
+    dcache: Option[DCacheParams] = Some(DCacheParams()), //data  cache
+    btb: Option[BTBParams] = Some(BTBParams()), //BTB??
+    dataScratchpadBytes: Int = 0, // ??
+    name: Option[String] = Some("tile"),//??
+    hartId: Int = 0,//??
+    beuAddr: Option[BigInt] = None,// some address
+    blockerCtrlAddr: Option[BigInt] = None,//blocker control address
     boundaryBuffers: Boolean = false // if synthesized with hierarchical PnR, cut feed-throughs?
     ) extends InstantiableTileParams[RocketTile] {
   require(icache.isDefined)
   require(dcache.isDefined)
   def instantiate(crossing: TileCrossingParamsLike, lookup: LookupByHartIdImpl)(implicit p: Parameters): RocketTile = {
-    new RocketTile(this, crossing, lookup)
+    new RocketTile(this, crossing, lookup) //some scala thing
   }
 }
 
