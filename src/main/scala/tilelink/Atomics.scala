@@ -13,16 +13,16 @@ class Atomics(params: TLBundleParameters) extends Module
   val io = new Bundle {
     val write    = Bool().flip // ignore opcode
     val a        = new TLBundleA(params).flip
-    val data_in  = UInt(width = params.dataBits).flip
-    val data_out = UInt(width = params.dataBits)
+    val data_in  = UInt(width = params.dataBits).flip //input
+    val data_out = UInt(width = params.dataBits) //o/p
   }
 
   // Arithmetic, what to do
-  val adder    = io.a.param(2)
-  val unsigned = io.a.param(1)
-  val take_max = io.a.param(0)
+  val adder    = io.a.param(2)//o/p of adder?
+  val unsigned = io.a.param(1)//check whether sign or unsign?
+  val take_max = io.a.param(0)// some max_param??
 
-  val signBit = io.a.mask & Cat(UInt(1), ~io.a.mask >> 1)
+  val signBit = io.a.mask & Cat(UInt(1), ~io.a.mask >> 1)//sign_bit
   val inv_d = Mux(adder, io.data_in, ~io.data_in)
   val sum = (FillInterleaved(8, io.a.mask) & io.a.data) + inv_d
   def sign(x: UInt): Bool = (Cat(x.asBools.grouped(8).map(_.last).toList.reverse) & signBit).orR()
