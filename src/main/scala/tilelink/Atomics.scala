@@ -1,5 +1,5 @@
 // See LICENSE.SiFive for license details.
-
+//edits by Rajat for GUI 
 package freechips.rocketchip.tilelink
 
 import Chisel.{defaultCompileOptions => _, _}
@@ -14,7 +14,7 @@ class Atomics(params: TLBundleParameters) extends Module
     val write    = Bool().flip // ignore opcode
     val a        = new TLBundleA(params).flip
     val data_in  = UInt(width = params.dataBits).flip //input
-    val data_out = UInt(width = params.dataBits) //o/p
+    val data_out = UInt(width = params.dataBits) //output
   }
 
   // Arithmetic, what to do
